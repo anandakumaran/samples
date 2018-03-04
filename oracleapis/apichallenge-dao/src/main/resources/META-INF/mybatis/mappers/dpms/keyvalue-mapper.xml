@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE mapper SYSTEM 'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace="com.oracle.rnd.test.apichallenge.mappers.KeyvalueMapper">
+    
+    <resultMap id="dataMap" type="Data">
+        <id property="key" column="ID_KEY"/>
+        <result property="value" column="VALUE"/>
+        <result property="hash" column="HASH"/>
+        
+    </resultMap>
+    
+    <select id="getData" resultMap="dataMap">
+        select 
+        ID_KEY            AS 'ID_KEY',
+        VALUE          AS 'VALUE',
+        HASH          AS 'HASH'
+        FROM
+        DATA
+        WHERE
+        ID_KEY = #{key};
+    </select>
+    
+    <insert id="persist" parameterType="Data" keyProperty="data.key">
+        INSERT INTO DATA (
+        ID_KEY, VALUE, HASH
+        ) VALUES (
+        #{data.key}, #{data.value},#{data.hash}
+        );
+    </insert>
+    
+</mapper>

@@ -1,0 +1,46 @@
+<configuration debug="true">
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/apichallenge.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>apichallenge.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>        
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        
+    </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+    <logger name="org.apache.directory" level="WARN"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.apache.ibatis.io" level="INFO"/>
+    <logger name="com.scb.edm.mfu.mappers" level="DEBUG"/>
+    
+    <!--jndi entries -->
+    <logger name="JdbmIndex" level="INFO"/>
+    <logger name="JdbmTable" level="INFO"/>
+    <logger name="LOG_CHANGES" level="INFO"/>
+    
+    <logger name="java.sql" level="DEBUG" >
+        <appender-ref ref="STDOUT" />
+    </logger>
+    
+    <logger name="org.mybatis">
+        <level value="DEBUG"/>
+    </logger>
+    
+    <root level="debug">
+        <appender-ref ref="STDOUT"  />
+        <appender-ref ref="FILE"  />
+
+    </root>
+</configuration>
